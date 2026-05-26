@@ -1,0 +1,37 @@
+- name: Prepare and deploy Redmine
+  hosts: all
+  become: true
+
+  vars:
+    pip_install_packages:
+      - name: docker
+
+    redmine_port: 80
+    redmine_image: redmine:5.1
+
+  roles:
+    - geerlingguy.pip
+    - role: datadog.datadog
+      tags: monitoring
+      when: "'webservers' in group_names"
+
+  tasks:
+    - name: Create Redmine env file
+      ansible.builtin.template:
+        src: templates/redmine.env.j2
+        dest: /tmp/redmine.env
+        mode: '0644'
+      tags:
+        - deploy
+
+    - name: Run Redmine container
+      community.docker.docker_container:
+        name: redmine
+        image: "{{ redmine_image }}"
+        state: started
+        restart_policy: always
+        ports:
+          - "{{ redmine_port }}:3000"
+        env_file: /tmp/redmine.env
+      tags:
+        - deploy

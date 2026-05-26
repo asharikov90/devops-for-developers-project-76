@@ -1,0 +1,18 @@
+redmine_port: 80
+redmine_image: redmine:5.1
+
+db_host: rc1d-35p6e2o236225cq7.mdb.yandexcloud.net
+db_name: redmine
+db_user: redmine
+db_password: "{{ vault_db_password }}"
+
+datadog_api_key: "{{ datadog_api_key }}"
+datadog_site: "us5.datadoghq.com"
+
+datadog_checks:
+  http_check:
+    init_config:
+
+    instances:
+      - name: redmine
+        url: "http://localhost"
