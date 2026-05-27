@@ -4,10 +4,10 @@ pip_install_packages:
 redmine_image: redmine:5.1
 redmine_port: 80
 
-db_host: "{{ vault_db_host }}"
-db_name: "{{ vault_db_name }}"
-db_user: "{{ vault_db_user }}"
-db_password: "{{ vault_db_password }}"
+db_host: localhost
+db_name: redmine
+db_user: redmine
+db_password: redmine
 
 datadog_checks:
   http_check:
