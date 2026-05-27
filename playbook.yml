@@ -2,13 +2,6 @@
   hosts: all
   become: true
 
-  vars:
-    pip_install_packages:
-      - name: docker
-
-    redmine_port: 80
-    redmine_image: redmine:5.1
-
   roles:
     - geerlingguy.pip
     - role: datadog.datadog
@@ -18,7 +11,7 @@
   tasks:
     - name: Create Redmine env file
       ansible.builtin.template:
-        src: templates/redmine.env.j2
+        src: redmine.env.j2
         dest: /tmp/redmine.env
         mode: '0644'
       tags:

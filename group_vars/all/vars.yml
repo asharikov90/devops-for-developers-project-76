@@ -1,4 +1,13 @@
-db_host: localhost
-db_name: redmine
-db_user: redmine
-db_password: redmine
+pip_install_packages:
+  - name: docker
+
+redmine_image: redmine:5.1
+redmine_port: 80
+
+datadog_checks:
+  http_check:
+    init_config:
+
+    instances:
+      - name: redmine
+        url: "http://localhost"
